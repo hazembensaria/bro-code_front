@@ -1,0 +1,95 @@
+<app-nav-bar></app-nav-bar>
+<mat-sidenav-container style="padding-top: 5rem;">
+  <mat-sidenav mode="side" [(opened)] ="opened">
+    <div class="inside" >
+      <form (submit)="onSubmit()" [formGroup]="form"  #loginform="ngForm" *ngIf="post.comments!==false">
+        <div class="info" >
+          <label for="">feedback</label>
+          <input type="text"   placeholder="give your feedback"   formControlName='content' ngModel  >
+        </div>
+        <button  class="bg-amber-500" type="submit" style="display: none; border: none ; outline: none ; height: 2rem ; border-radius: 13px ;color:  #0c2461; padding: .5rem;font-weight: 500 ; font-size: larger   ">upgrad profil</button>
+
+      </form>
+      <div *ngIf="post.comments===false" class="comment_off" style=" width: 80%; background-color: #efefef; height: 9rem; margin: auto; border-radius: 10px ;display: flex ;flex-direction: column;justify-content: center ;align-items: center">
+       <div class="lock" style="margin-bottom: 1rem; background-color: #818181; width: 3rem ;height: 3rem ;border-radius: 50% ;display: flex; justify-content: center;align-items: center">
+         <i class="fas fa-lock" style="color:white ;font-size: large"></i>
+       </div>
+        <div style="width: 70%">  {{post.fname}} {{post.lname}} has turned off the comments </div>
+      </div>
+<div class="comments" style="overflow: hidden ;overflow-y: scroll ">
+  <div class="comment" *ngFor="let comment of comments" style="margin-top: 3rem; display: flex">
+    <img [src]="comment.imagepath" alt="" style="width: 35px; height: 35px; border-radius: 50%">
+    <div style="margin-left: 1rem;">
+      <div style="font-size: large; font-weight: 500; color: #0c2461">{{comment.name}}</div>
+      <div style="color: black;">
+        {{comment.content}}
+      </div>
+      <div style="font-size: x-small ;color: gray  ; font-weight: 200">
+        {{(comment.date)}}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    </div>
+
+
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <div style=" margin-top: 2rem; margin-left: 20%;" class="posts"  >
+
+
+      <header  >
+        <img style="width: 50px; height: 50px; border-radius: 50%;" [src]="poster.imagepath" alt="">
+        <div>
+          <p id="fullname" style="margin-bottom: 0px;font-size: larger; font-weight: 500;" >{{poster.name}}</p>
+          <p id="date" [attr.fulldate]="post.fulldate" style="margin-top: 0px; font-size: x-small;color: gray;">{{post.date}}<i style="margin-left: 5px;" class="fal fa-alarm-clock"></i></p>
+        </div>
+        <!--          menu -->
+        <div class="menu" style="margin-left: 63%">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon><i class="far fa-ellipsis-h"></i></mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item style="color:#0c2461">
+              <mat-icon><i style="color: red"  class="fal fa-exclamation-triangle"></i></mat-icon>
+              <span>signal</span>
+            </button>
+          </mat-menu>
+        </div>
+        <!--          end of menu -->
+      </header>
+
+      <img   style="width: 100%; height: 60%; " [src]="post.imagepath" alt="szdf">
+      <p style="color: #343a40;line-height: 1.6em;font-family: 'Open Sans',Arial,Helvetica,sans-serif; padding: 1rem;height: 13%;overflow: hidden;text-overflow: ellipsis;  white-space:normal ">{{post.content}}</p>
+      <p><span style="color: #0ab9b4; margin-left: 1rem; margin-right: 1rem;">Catégorie :</span> {{post.categori}}</p>
+      <!--    <footer >-->
+      <!--      <div>-->
+      <!--        <i *ngIf="!(postsUserLikes.indexOf(post.idPost)>=0)" (click)="onLikePost(post.idPost, post.nblikes  ,post.categ)" style="color: red;" class="fal fa-heart"></i>-->
+      <!--        <i *ngIf="postsUserLikes.indexOf(post.idPost)>=0"(click)="onLikePost(post.idPost,  post.nblikes  ,post.categ)" style="color: red;" class="fas fa-heart"></i>-->
+      <!--        <p style="display: inline; margin-left: 5px;" *ngIf="post.nblikes!==0 && !(postsUserLikes.indexOf(post.idPost)>=0)">{{post.nblikes }}</p>-->
+      <!--        <p style="display: inline; margin-left: 5px;" *ngIf="postsUserLikes.indexOf(post.idPost)>=0">you and {{post.nblikes-1}} others</p>-->
+      <!--      </div>-->
+
+      <!--      <div id="readlater" (click)="readLater(post.idPost )" >-->
+      <!--        <i *ngIf="categori.indexOf(post.idPost)<0" style="color: #0ab9b4 ; margin-right: 2px; " class="fal fa-bookmark"></i> <div *ngIf="categori.indexOf(post.idPost)<0">read later</div>-->
+      <!--        <i id="bookmark" *ngIf="categori.indexOf(post.idPost)>=0"  style="color: #0ab9b4 ; margin-right: 5px;" class="fas fa-bookmark"></i>-->
+      <!--      </div>-->
+
+      <!--    </footer>-->
+
+    </div>
+
+
+
+    <button (click)="opened= !opened" style="position: fixed ;top: 8rem ; " [matBadge]="comments.length" matBadgeColor="warn"><img style="z-index: 12;width: 45px ;height: 45px;" src="../../../assets/images/chat.png" alt=""></button>
+<!--    <button (click)="opened= !opened" style="position: fixed ;top: 8rem ; "><img style="z-index: 12;width: 40px ;height: 40px;" src="../../../assets/images/chat.png" alt=""></button>-->
+    <button style="  " [ngClass]="{'visible':scroll ,'nvisible':!scroll}" > <img style="z-index: 12;width: 40px ;height: 40px;" src="../../../assets/images/heart2.png" alt=""></button>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

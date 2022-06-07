@@ -1,0 +1,102 @@
+<app-nav-bar></app-nav-bar>
+<div class="father" style="margin-top: 5rem;">
+  <div class="left">
+
+  </div>
+  <div class="main">
+<!--     create offre d emploi-->
+    <section class="creatPost"  *ngIf="isconnected" (click)="addJob()"  >
+      <header id="idee-header">
+        <img style="width: 60px;height: 60px;border-radius:50%" [src]="user.imagepath" alt="">
+        <input   placeholder="feel free ..." id="feelfree" type="text" disabled style="background-color: #fff;">
+      </header>
+    </section>
+<!--    create offre d emploi-->
+    <ng-container *ngFor="let job of jobs">
+      <div class="job" *ngIf="filters.length===0 ||( filters.includes(job.location) || filters.includes(job.level) || filters.includes(job.type))">
+      <header>
+        <div style="display: flex ;justify-content: center ;align-items: flex-start ;gap: .5rem ;font-size: large ;font-weight: 500;">
+          <img [src]="job.imagepath" alt="" style="width: 45px; height: 45px; border-radius: 7px">
+          <div class="name">{{job.name}}</div>
+          <div style="font-size: x-small ;color: #343a40">{{job.date}}</div>
+
+        </div>
+        <div class="save">save <i  style=" margin-left: 12px; " class="fas fa-bookmark"></i></div>
+      </header>
+        <div class="content">
+          <div class="descr">{{job.content}}</div>
+          <div class="propriets">
+            <div class="type">{{job.type}}</div>
+            <div class="level">{{job.level}}</div>
+            <div class="location">{{job.location}}</div>
+          </div>
+          <div class="tech" style="display: flex ;gap: .5rem ;margin-top: .5rem;font-size: small; color: #343a40">
+            <div *ngFor="let tech of job.tech">#{{tech}}</div>
+          </div>
+        </div>
+        <hr style="margin:1rem 0">
+        <footer>
+          <div class="salary"><i style="margin-right: 7px;  color: #31a4ba;" class="far fa-sack-dollar"></i>dt {{job.salary}}<span style="color: #d5d5d5;"> /Month</span></div>
+          <div class="applied" *ngIf="job.applied!==0"> <i style="margin-right: 7px;  color: #31a4ba;" class="far fa-users"></i>{{job.applied}} <span style="color: #d5d5d5; ">people applied</span></div>
+          <div *ngIf="job.applied===0">no one applied yet </div>
+          <div class="apply" (click)="applyJob(job._id ,job.iduser)">apply Now</div>
+        </footer>
+      </div>
+    </ng-container>
+
+  </div>
+  <div class="right">
+  <div class="clear">
+    <div style="font-size: x-large ;font-weight: 500 ;">Job Filter</div>
+    <div style="color:#31a4ba; " (click)="clearAll()">clear All</div>
+  </div>
+    <div class="filter-level">
+      <header>
+        <div style="font-size: large ;font-weight: 500 ; color: #ee786b;">Experience Level </div>
+        <div style="color:#31a4ba; " class="clearSection">Clear</div>
+      </header>
+       <div class="levels">
+         <div *ngFor="let level of level" style="margin-bottom: .5rem;">
+           <input (click)="filter(level)" type="checkbox"  name="" [value]="level" style="border: 2px solid red" [checked]=levelStatus>
+           <label for=""> {{level}}</label><br>
+         </div>
+
+       </div>
+    </div>
+
+
+    <div class="filter-level">
+      <header>
+        <div style="font-size: large ;font-weight: 500 ; color: #ee786b;">Job Location </div>
+        <div style="color:#31a4ba; " class="clearSection">Clear</div>
+      </header>
+      <div class="levels">
+        <div *ngFor="let location of location" style="margin-bottom: .5rem;">
+          <input (click)="filter(location)" type="checkbox"  name="vehicle1" [value]="location" style="border: 2px solid red" [checked]="locationStatus">
+          <label for=""> {{location}}</label><br>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="filter-level">
+      <header>
+        <div style="font-size: large ;font-weight: 500 ; color: #ee786b;">Job Type</div>
+        <div style="color:#31a4ba; " class="clearSection">Clear</div>
+      </header>
+      <div class="levels">
+        <div *ngFor="let type of type" style="margin-bottom: .5rem;">
+          <input (click)="filter(type)" type="checkbox" name="vehicle1" [value]="type" style="border: 2px solid red" [checked]=typeStatus>
+          <label for=""> {{type}}</label><br>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+</div>

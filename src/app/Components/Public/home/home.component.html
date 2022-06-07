@@ -1,0 +1,141 @@
+
+    <app-nav-bar></app-nav-bar>
+<div class="father">
+  <div class="freinds bg-blue-50 "style="position: fixed; top: 5rem ;left: 0 ;bottom: 0" >
+<!--     search bar-->
+
+<!--    <div class="flexbox backdrop backdrop-blur" >-->
+<!--      <div class="search">-->
+<!--        <div>-->
+<!--          <input type="text" placeholder="Search Contact . . ." required>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    end of search bar -->
+    <div class="searc" style=" border-radius: 10px; background-color: #fff; display: flex ; flex-direction: column ;height: 10rem; justify-content: center; align-items: center">
+      <p style="font-size: x-large ;font-weight: 500;">search for a Post</p>
+      <p style="font-size: small">type your Qategorie or a KeyWord</p>
+          <div class="flexbox backdrop backdrop-blur" >
+            <div class="search">
+              <div>
+                <input type="text" placeholder="Search Contact . . ." required >
+              </div>
+            </div>
+          </div>
+
+    </div>
+    <mat-slide-toggle (click)="showReaDLater()">Slide read later only</mat-slide-toggle>
+
+
+
+
+
+
+
+    <hr style="margin: 1rem 0;">
+    <div class="following" style=" height: 20rem;">
+      <p style="font-weight: 500 ;font-size: large; color:  #0c2461;">following</p>
+      <ng-container *ngFor="let follow of following"  >
+        <div  style=" display: flex ;align-items: center ;gap: 1rem ;margin-bottom: 1rem;" id="follow" (click)="visitProfil(follow._id)" class="hover:bg-blue-100">
+          <img [src]="follow.imagepath" alt="" style="width: 35px ;height: 35px; border-radius: 50%">
+          <div style="font-size: large ; font-weight: 400">{{follow.name}}</div>
+        </div>
+      </ng-container>
+    </div>
+    <hr  style="margin-bottom: 1rem;">
+    <div class="sugetions">
+      <p style="font-weight: 500 ;font-size: large; color: #0c2461;">people you may know</p>
+    </div>
+
+  </div>
+<!--    ------------------------------ main section-----------------------------------  -->
+  <div class="main" style="margin-left: 22rem; margin-top: 5rem;">
+    <section class="creatPost"  *ngIf="isconnected" (click)="onAddPost()" >
+<!--        <header id="idee-header">-->
+<!--          <img style="width: 45px;height: 45px;border-radius:50%" [src]="user.imagepath" alt="">-->
+<!--          <input   placeholder="feel free ..." id="feelfree" type="text" disabled style="background-color: #fff;">-->
+<!--        </header>-->
+      <div class="opt" >add post</div>
+
+    </section>
+
+    <ng-container *ngFor="let post of posts">
+      <div style=" margin-top: 2rem;" class="posts" *ngIf="(!post.private && post.id !== userId ) "  >
+
+
+        <header  >
+          <img style="width: 50px; height: 50px; border-radius: 50%;" [src]="post.userimg" alt="">
+          <div>
+            <p id="fullname" style="margin-bottom: 0px;font-size: larger; font-weight: 500;" (click)="visitProfil(post.id)">{{post.fname}} {{post.lname}}</p>
+            <p id="date" [attr.fulldate]="post.fulldate" style="margin-top: 0px; font-size: x-small;color: gray;">{{post.date}}<i style="margin-left: 5px;" class="fal fa-alarm-clock"></i></p>
+          </div>
+<!--          menu -->
+          <div class="menu" style="margin-left: 63%">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon><i class="far fa-ellipsis-h"></i></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item style="color:#0c2461">
+                <mat-icon><i style="color: red"  class="fal fa-exclamation-triangle"></i></mat-icon>
+                <span>signal</span>
+              </button>
+              <button mat-menu-item style="color:#0c2461" *ngIf="post.id===userId" (click)="turnOffComments(post.idPost ,post.comments)">
+                <mat-icon><img style="z-index: 25;width: 40px ;height: 25px;" src="../../../assets/images/chat.png" alt=""></mat-icon>
+                <span *ngIf="post.comments">turn off comments</span>
+                <span *ngIf="!post.comments">turn on comments</span>
+              </button>
+            </mat-menu>
+          </div>
+<!--          end of menu -->
+        </header>
+
+        <img (click)="readPost(post.idPost , post.id)"  style="width: 100%; height: 60%; " [src]="post.img" alt="szdf">
+        <p (click)="readPost(post.idPost , post.id)" style="color: #343a40;line-height: 1.6em;font-family: 'Open Sans',Arial,Helvetica,sans-serif; padding: 1rem;height: 13%;overflow: hidden;text-overflow: ellipsis;  white-space:normal ">{{post.cont}}</p>
+        <p><span style="color: #0ab9b4; margin-left: 1rem; margin-right: 1rem;">Catégorie :</span> {{post.categ}}</p>
+        <footer >
+          <div>
+            <i *ngIf="!(postsUserLikes.indexOf(post.idPost)>=0)" (click)="onLikePost(post.idPost, post.nblikes  ,post.categ)" style="color: red;" class="fal fa-heart"></i>
+            <i *ngIf="postsUserLikes.indexOf(post.idPost)>=0"(click)="onLikePost(post.idPost,  post.nblikes  ,post.categ)" style="color: red;" class="fas fa-heart"></i>
+            <p style="display: inline; margin-left: 5px;" *ngIf="post.nblikes!==0 && !(postsUserLikes.indexOf(post.idPost)>=0)">{{post.nblikes }}</p>
+            <p style="display: inline; margin-left: 5px;" *ngIf="postsUserLikes.indexOf(post.idPost)>=0">you and {{post.nblikes-1}} others</p>
+          </div>
+
+          <div id="readlater" (click)="readLater(post.idPost )" >
+            <i *ngIf="categori.indexOf(post.idPost)<0" style="color: #0ab9b4 ; margin-right: 2px; " class="fal fa-bookmark"></i> <div *ngIf="categori.indexOf(post.idPost)<0">read later</div>
+            <i id="bookmark" *ngIf="categori.indexOf(post.idPost)>=0"  style="color: #0ab9b4 ; margin-right: 5px;" class="fas fa-bookmark"></i>
+          </div>
+
+        </footer>
+
+      </div>
+    </ng-container>
+
+  </div>
+<!--  <div class="ads" *ngIf="jobs.length!==0">-->
+<!--    <div class="sugest" *ngFor="let job of jobs" style="width: 100%; margin-top:2rem;background-color: #fff; border-radius: 10px ; padding: .5rem">-->
+<!--      <div class="top" style="display: flex ; justify-content: space-between">-->
+<!--        <div style="display: flex ;gap: .4rem ;">-->
+<!--        <div><img [src]="job.imagepath" alt="" style="width: 30px;height: 30px; border-radius: 5px; "></div>-->
+<!--        <div  style="font-weight: 500;">{{job.name}}</div>-->
+<!--        </div>-->
+<!--        <div id="save" ><i class="fas fa-bookmark"></i></div>-->
+<!--      </div>-->
+<!--        <div class="body" style="display: flex ;height: 4.5rem; overflow: hidden ;margin-top: 1rem;">-->
+<!--          <div class="type" style="line-height: 1.6 ;  color: #c7c7c7;">{{job.content}}</div>-->
+<!--&lt;!&ndash;          <div class="level">{{job.level}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="location">{{job.location}}</div>&ndash;&gt;-->
+<!--        </div>-->
+<!--      <hr style="margin: .5rem">-->
+<!--      <footer>-->
+<!--        <div style="display: flex; gap: .5rem ; font-size: small">-->
+<!--          <div *ngFor="let tech of job.tech">#{{tech}}</div>-->
+<!--        </div>-->
+<!--        <div style="display: flex ;justify-content: space-between">-->
+<!--        <div class="salary" style="margin-top: .5rem;"><i style="margin-right: 7px;  color: #31a4ba;" class="far fa-sack-dollar"></i>dt {{job.salary}}<span style="color: #d5d5d5;"> /Month</span></div>-->
+<!--        <div class="apply" >apply Now</div>-->
+<!--        </div>-->
+<!--      </footer>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+

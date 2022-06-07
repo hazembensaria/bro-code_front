@@ -1,0 +1,145 @@
+<app-nav-bar></app-nav-bar>
+<mat-sidenav-container style="padding-top: 1rem;">
+  <mat-sidenav mode="side" [(opened)] ="opened">
+
+
+ <div class="options">
+   signals
+ </div>
+
+    <div class="options" routerLink="/charts">
+      charts
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+<div class="father">
+
+    <div class="md:w-[70%]  flex m-auto relative mt-[2rem]" style="margin-top: 15rem;display: flex ; flex-direction: column ;box-shadow: 2px 2px 15px gray
+      ; border-radius: 20px ;">
+      <div class="rounded-full bg-white md:w-[180px] md:h-[180px] sm:w-[100px] sm:h-[100px] w-[70px] :h-[70px]  absolute top-[-90px] left-[10%]" style="display: flex; justify-content: center ;
+      align-items: center ; box-shadow: 2px 2px 6px gray ;" >
+        <div (click)="changePhoto()" class="edit_img_btn hover:cursor-pointer"style="position: absolute; width: 25px; height: 25px; background-color: white;top: 80% ;right: 26px
+        ;display: flex ;justify-content: center ;align-items: center ;border-radius: 3px; box-shadow: 2px 2px 6px gray ;">
+
+          <i class="fas fa-pen"></i>
+        </div>
+        <img [src]="img" alt="s," style="width: 95% ; height: 95% ; border-radius: 50%">
+      </div>
+      <header class="" style="  ; border-radius: 20px 20px 0 0  ; border-bottom: 1px solid lightgray ;  padding: 1rem;display: flex; justify-content: flex-end;
+width: 100%;">
+        <div style="width: 60%;display: flex;flex-direction: column; gap: .5rem">
+          <p style=" font-size: x-large; font-weight: 550; color: #0c2461;font-family:  'Baloo 2', cursive ;">{{user.name}}</p>
+          <p style="font-weight: 500 ;color : gray;">{{user.bio}}</p>
+          <div>
+            <p style="font-family:  'Baloo 2', cursive ;color: rgb(190, 188, 188); margin-right: 4rem;  display: inline; " ><i style="margin-right: 4px;" class="fab fa-linkedin"></i> {{user.linkedin}}</p>
+            <p style="font-family:  'Baloo 2', cursive ;color: rgb(190, 188, 188); margin-right: 4rem; display: inline; " ><i  style="margin-right: 4px;" class="fab fa-facebook-f"></i> {{user.facebook}}</p>
+            <p style="font-family:  'Baloo 2', cursive ;color: rgb(190, 188, 188); margin-right: 4rem;  display: inline; " ><i style="margin-right: 4px;" class="fab fa-twitter"></i> {{user.twitter}}</p>
+          </div>
+        </div>
+        <input (click)="updateProfil()" class="hover:cursor-pointer" type="button" value="upgrade profil" style="align-self: flex-end ;border: 2px red solid ;border-radius: 20px ;padding: .1rem .5rem ;font-size: small ; background-color:red; color: white ">
+
+
+      </header>
+      <div class="content" style="background-color:#f8f7f7; display: flex ;">
+        <div class="leftdiv2" style="width: 30% ;background-color:#f3f3f3;padding-left: 2rem ;padding-top: 2rem">
+          <div>
+
+
+            <p style="font-family:  'Baloo 2', cursive ;color:  #0c2461; font-size: large ;font-weight: 500;" ><i style="margin-right: 5px;" class="fas fa-envelope"></i>{{user.email}}</p>
+            <p style="font-family:  'Baloo 2', cursive ;color: gray; " ><i style="margin-right: 5px;"  class="fas fa-phone-alt"></i> (Mobile) {{user.phone}}</p>
+            <p style="font-family:  'Baloo 2', cursive ;color: gray; margin-left: 22px;" >  (Office) {{user.proPhone}}</p>
+            <p style="font-family:  'Baloo 2', cursive ;color: gray; " ><i style="margin-right: 5px;"  class="fas fa-map-marker-alt"></i> {{user.location}}</p>
+          </div>
+          <div class="opt" routerLink="/yourJobs" [matBadge]="5" matBadgeColor="accent">your jobs</div>
+          <div class="opt" routerLink="/saves">your saves </div>
+
+
+
+        </div>
+        <div class="rightdiv" style="width: 70% ;" >
+<!--       <div class="anything" style="width: 80% ; height: 15rem ; background-color: gray;border-radius: 15px ; padding: 1rem ">-->
+<!-- yo"u dont post anything yet !-->
+
+<!--       </div>-->
+
+          <div class="userPosts " style="width: 100% ;  display: flex;
+ flex-direction: column;
+  justify-content: center;
+  align-items: center;">
+            <ng-container *ngFor="let post of posts">
+              <div style=" margin-top: 2rem;" class="posts"  >
+
+
+                <header style="justify-content: space-between"  >
+                  <div style="display: flex ;gap: .5rem">
+                  <img style="width: 50px; height: 50px; border-radius: 50%;" [src]="post.userimage" alt="">
+                  <div>
+                    <p id="fullname" style="margin-bottom: 0px;font-size: larger; font-weight: 500;" >{{post.fname}} {{post.lname}}</p>
+                    <p id="date" [attr.fulldate]="post.fulldate" style="margin-top: 0px; font-size: x-small;color: gray;">{{post.date}}<i style="margin-left: 5px;" class="fal fa-alarm-clock"></i></p>
+                  </div>
+                  </div>
+                  <!--          menu -->
+                  <div class="menu">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                      <mat-icon><i class="far fa-ellipsis-h"></i></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item style="color:#0c2461">
+                        <mat-icon><i style="color: red"  class="fal fa-exclamation-triangle"></i></mat-icon>
+                        <span>signal</span>
+                      </button>
+                      <button mat-menu-item style="color:#0c2461" (click)="turnOffComments(post._id ,post.comments)">
+                        <mat-icon><img style="z-index: 25;width: 40px ;height: 25px;" src="../../../assets/images/chat.png" alt=""></mat-icon>
+                        <span *ngIf="post.comments">turn off comments</span>
+                        <span *ngIf="!post.comments">turn on comments</span>
+                      </button>
+                      <button mat-menu-item style="color:#0c2461" (click)="switchState(post._id , post.private)" >
+                        <mat-icon><i class="fal fa-key"></i></mat-icon>
+                        <span *ngIf="!post.private">switch to private</span>
+                        <span *ngIf="post.private">switch to public</span>
+                      </button>
+                      <button mat-menu-item style="color:#0c2461" (click)="deletePost(post._id)">
+                        <mat-icon><i class="fal fa-eraser"></i></mat-icon>
+                        <span>delete post</span>
+                      </button>
+                    </mat-menu>
+                  </div>
+                  <!--          end of menu -->
+                </header>
+
+                <img   style="width: 100%; height: 60%; " [src]="post.imagepath" alt="szdf">
+                <p  style="color: #343a40;line-height: 1.6em;font-family: 'Open Sans',Arial,Helvetica,sans-serif; padding: 1rem;height: 13%;overflow: hidden;text-overflow: ellipsis;  white-space:normal ">{{post.content}}</p>
+                <p><span style="color: #0ab9b4; margin-left: 1rem; margin-right: 1rem;">Catégorie :</span> {{post.categori}}</p>
+<!--                <footer >-->
+<!--                  <div>-->
+<!--                    <i *ngIf="!(postsUserLikes.indexOf(post.idPost)>=0)" (click)="onLikePost(post.idPost, post.nblikes  ,post.categ)" style="color: red;" class="fal fa-heart"></i>-->
+<!--                    <i *ngIf="postsUserLikes.indexOf(post.idPost)>=0"(click)="onLikePost(post.idPost,  post.nblikes  ,post.categ)" style="color: red;" class="fas fa-heart"></i>-->
+<!--                    <p style="display: inline; margin-left: 5px;" *ngIf="post.nblikes!==0 && !(postsUserLikes.indexOf(post.idPost)>=0)">{{post.nblikes }}</p>-->
+<!--                    <p style="display: inline; margin-left: 5px;" *ngIf="postsUserLikes.indexOf(post.idPost)>=0">you and {{post.nblikes-1}} others</p>-->
+<!--                  </div>-->
+
+<!--                  <div id="readlater" (click)="readLater(post.idPost )" >-->
+<!--                    <i *ngIf="categori.indexOf(post.idPost)<0" style="color: #0ab9b4 ; margin-right: 2px; " class="fal fa-bookmark"></i> <div *ngIf="categori.indexOf(post.idPost)<0">read later</div>-->
+<!--                    <i id="bookmark" *ngIf="categori.indexOf(post.idPost)>=0"  style="color: #0ab9b4 ; margin-right: 5px;" class="fas fa-bookmark"></i>-->
+<!--                  </div>-->
+
+<!--                </footer>-->
+
+              </div>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+    <button *ngIf="user.role==='admin'" (click)="opened= !opened" style="position: fixed ;top: 8rem ; "  matBadgeColor="warn"><div style="padding: .5rem ;background-color : #f3f3f3;border-radius: 5px ;box-shadow: 2px 2px 8px lightgray ; font-size: large ; font-weight: 500;">admin dash Bord</div></button>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

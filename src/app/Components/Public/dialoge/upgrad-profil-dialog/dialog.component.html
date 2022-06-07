@@ -1,0 +1,86 @@
+<div mat-dialog-actions style="display: flex ;justify-content: space-between ;align-items: flex-start; padding: 0 ">
+  <h4 mat-dialog-title style="font-weight: 500">Edit profil informations </h4>
+  <button mat-button [mat-dialog-close]="false" color="primary" ><i class="fas fa-times"></i></button>
+
+</div>
+<hr>
+
+
+  <form (submit)="onSubmit(myForm)" #myForm="ngForm" style="display: flex ; flex-direction: column ; align-items: center; ">
+    <div class="inputs" style="display: flex ; width: 100%; margin-bottom: 0.4rem">
+<div class="leftdiv" style="width: 50% ;display: flex ;flex-direction: column ;gap: 1rem">
+  <div class="info">
+    <label for=""> first name</label><br>
+    <input type="text" name="firstName" ngModel  #firstName="ngModel" [(ngModel)]="user.firstname" >
+  </div>
+  <div class="info">
+    <label for="">Last Name</label><br>
+    <input type="text"  name="lastName" ngModel  #lastName="ngModel" [(ngModel)]="user.lastName">
+  </div>
+  <div class="info">
+    <label for="">user name</label><br>
+    <input type="text" name="userName" ngModel  #userName="ngModel" [(ngModel)]="user.name">
+  </div>
+  <div class="info">
+    <label for="">birthday</label><br>
+    <input type="date" name="birth" ngModel  #birth="ngModel" [(ngModel)]="user.birth">
+  </div>
+</div>
+      <div class="rightdiv" style="width: 50% ; display: flex ; flex-direction: column ;gap: 1rem;  align-items: flex-end;">
+        <div class="info">
+          <label for=""><i class="fas fa-envelope"></i>mail</label><br>
+          <input type="text"name="email" ngModel  #email="ngModel" [(ngModel)]="user.email"  >
+        </div>
+        <div class="info">
+          <label for=""><i class="fas fa-phone-alt"></i>personnel phone</label><br>
+          <input type="text" name="phone" ngModel  #phone="ngModel" [(ngModel)]="user.phone">
+        </div>
+        <div class="info">
+          <label for=""><i class="fas fa-phone-alt"></i>professionel phone</label><br>
+          <input type="text"name="proPhone" ngModel  #proPone="ngModel" [(ngModel)]="user.proPhone">
+        </div>
+        <div class="info">
+          <label for="">region</label><br>
+          <input type="text" name="location" ngModel  #location="ngModel" [(ngModel)]="user.location">
+        </div>
+      </div>
+    </div>
+    <div class="bio" style="width: 100%;">
+      <h4 mat-dialog-title style="font-weight: 500 ; margin: .5rem 0 0 0; align-self: flex-start">bio </h4>
+      <textarea style="border: 1px #0c2461 solid ;width: 100%; border-radius: 10px; padding: .5rem " name="bio" ngModel  #bio="ngModel" [(ngModel)]="user.bio"></textarea>
+    </div>
+    <h4 mat-dialog-title style="font-weight: 500 ; margin-left: 0; align-self: flex-start">add social media links </h4>
+    <div class="socialMedia" style="display: flex ; width: 100%; margin-bottom: 1rem">
+      <div class="leftdiv" style="width: 50% ;display: flex ;flex-direction: column ;gap: 1rem">
+        <div class="info">
+          <label for=""><i class="fab fa-facebook-f"></i> facebook</label>
+          <input type="text" name="facebook" ngModel  #facebook="ngModel" [(ngModel)]="user.facebook">
+        </div>
+        <div class="info">
+          <label for=""><i class="fab fa-linkedin-in"></i>linkedin</label>
+          <input type="text" name="linkedin" ngModel  #linkedin="ngModel" [(ngModel)]="user.linkedin">
+        </div>
+      </div>
+      <div class="rightdiv" style="width: 50% ; display: flex ; flex-direction: column ;gap: 1rem;  align-items: flex-end;">
+
+
+        <div class="info">
+          <label for=""><i class="fab fa-twitter"></i>twitter</label>
+          <input type="text"  name="twitter" ngModel  #twitter="ngModel" [(ngModel)]="user.twitter">
+        </div>
+        <div class="info">
+          <label for=""><i class="fab fa-github"></i>github</label>
+          <input type="text" name="github" ngModel  #github="ngModel" [(ngModel)]="user.github" >
+        </div>
+      </div>
+    </div>
+<button class="bg-amber-500" type="submit" style="border: none ; outline: none ; height: 2rem ; border-radius: 13px ;color:  #0c2461; padding: .5rem;font-weight: 500 ; font-size: larger " [mat-dialog-close]="false">upgrad profil</button>
+
+
+  </form>
+
+
+
+
+
+

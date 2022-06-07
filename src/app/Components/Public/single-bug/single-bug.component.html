@@ -1,0 +1,54 @@
+<app-nav-bar></app-nav-bar>
+<div class="father">
+<div class="main" style="margin: auto">
+    <div style="background-color: #fff; padding: .5rem ; border-radius: 10px ;">
+
+      <header style=" display: flex ; justify-content: space-between">
+        <div style="display: flex; gap: .5rem ;align-items: center">
+          <img style=" height: 40px; width: 40px ;border-radius: 50%" [src]="bug.userimg" alt="">
+          <div class="name">{{bug.name}}</div>
+        </div>
+
+
+
+        <div class="menu" >
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon><i class="far fa-ellipsis-h"></i></mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item style="color:#0c2461">
+              <mat-icon><i style="color: red"  class="fal fa-exclamation-triangle"></i></mat-icon>
+              <span>signal</span>
+            </button>
+            <button mat-menu-item style="color:#0c2461" >
+              <mat-icon><img style="z-index: 25;width: 40px ;height: 25px;" src="../../../assets/images/chat.png" alt=""></mat-icon>
+              <span >turn off comments</span>
+
+            </button>
+          </mat-menu>
+        </div>
+      </header>
+      <div class="body">
+        <div class="title">{{bug.title}}</div>
+        <div class="content">{{bug.content}}</div>
+        <div class="tags">
+          <div class="tag" *ngFor="let tag of bug.tags">{{tag}}</div>
+        </div>
+        <hr>
+        <footer>
+          <div class="options" style="margin-bottom: .5rem  ;">
+            <div>
+              <div class="share">likes</div>
+              <div class="share">views</div>
+              <div (click)="shareBug(bug._id ,bug.title)" class="share"><i style="margin-right: 5px;" class="fas fa-share"></i>Share</div>
+            </div>
+
+          </div>
+
+        </footer>
+      </div>
+    </div>
+
+</div>
+
+</div>

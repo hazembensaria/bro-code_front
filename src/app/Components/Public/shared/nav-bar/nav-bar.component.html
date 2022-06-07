@@ -1,0 +1,59 @@
+<div class="navbar bg-white" [ngClass]="{'bg-blue-200':color==='blue' ,'bg-red-200':color==='red'}  " style="color: #0c2461">
+<!--  [ngClass]="{'bg-blue-200':color==='blue' ,'bg-red-200':color==='red'}"-->
+  <div class="container">
+    <div id="logo" class="hover:cursor-pointer " routerLink="/">Bro Code </div>
+
+    <div class="items">
+
+      <div class="item" routerLink="/home">home</div>
+      <div class="item">about</div>
+      <div *ngIf="isconnected"   class="item" routerLink="/jobs">jobs</div>
+      <div *ngIf="isconnected" class="item" routerLink="/bugs">bugs</div>
+      <div *ngIf="!isconnected" class="item" routerLink="/login">log in </div>
+      <div *ngIf="isconnected" class="item" routerLink="/profil" style="display: flex ;justify-content: space-between ;  align-items: center ;gap: 10px;  background-color: rgba(255,255,255,0.7); border-radius: 22px ; padding: 5px 15px 5px 5px ">
+        <img [src]="image" alt="" style="width: 30px ; height: 30px ; border-radius: 50%" >
+        <div>{{fname}}</div>
+      </div>
+      <div class="menu" *ngIf="isconnected">
+
+
+        <button mat-icon-button [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with a menu">
+          <mat-icon [matBadge]="shares.length" matBadgeColor="accent"  [matBadgeHidden]="shares.length==0"><i style="font-size: large" class="fas fa-bell"></i></mat-icon>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before" style="width: 500px ; ">
+          <button (click)="getbug(share.idpost)" mat-menu-item *ngFor="let share of shares">
+           <div style="display: flex ;width: 100%; align-items: center  ;flex-direction: column">
+             <div style="display: flex ;width: 100%; align-items: center  ; ">
+               <img style="width: 30px ;height: 30px ;border-radius: 5px" [src]="share.imagepath" alt="">
+               <div>{{share.name}} has shared </div>
+             </div>
+
+             <div style="width: 100%">{{share.title}}</div>
+
+
+           </div>
+          </button>
+        </mat-menu>
+      </div>
+
+<!--      menu-->
+      <div class="menu" *ngIf="isconnected">
+        <button mat-button [matMenuTriggerFor]="beforeMenu"><img style="width: 20px ;height: 20px;" src="../../../../assets/images/down-filled-triangular-arrow.png" alt=""></button>
+        <mat-menu #beforeMenu="matMenu" xPosition="after" style="margin-top: 2rem;">
+          <button mat-menu-item style="width: 20rem"><div class="item" (click)="onlogout()">log out</div></button>
+          <button mat-menu-item [matMenuTriggerFor]="invertebrates">customize nav bar color</button>
+        </mat-menu>
+        <mat-menu #invertebrates="matMenu">
+          <button mat-menu-item *ngFor="let color of colors" (click)="chooseColor(color)">{{color}}</button>
+        </mat-menu>
+      </div>
+
+<!--      end menu -->
+<!--      <div class="item" (click)="onlogout()">log out</div>-->
+
+      <div *ngIf="!isconnected" class="item" routerLink="/register" style="background-color: #15ccbe; width: 6em ; height: 2em; display: flex ;
+      justify-content: center ; align-items: center ; border-radius: 15px"><p>sign up</p></div>
+    </div>
+
+  </div>
+</div>

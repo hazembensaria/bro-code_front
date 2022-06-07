@@ -1,0 +1,17 @@
+
+<form class="example-container"  (submit)="onSubmit(myForm)" #myForm="ngForm">
+  <div class="info">
+    <label for=""> Title</label><br>
+    <input type="text" name="salary" ngModel  #salary="ngModel" >
+  </div>
+<div class="bio" style="width: 100%;">
+  <h4 mat-dialog-title style="font-weight: 500 ; margin: .5rem 0 0 0; align-self: flex-start">descrition </h4>
+  <textarea style="border: 1px #0c2461 solid ;width: 100%;height: 15rem; border-radius: 10px; padding: .5rem " name="content" ngModel  #content="ngModel"   ></textarea>
+</div>
+  <div class="container">
+    <ul class="ks-cboxtags">
+      <li *ngFor="let role of langage" (click)="selectLangage(role)"><input type="checkbox" [id]="role" value="Rainbow Dash"><label [for]="role">{{role}}</label></li>
+    </ul>
+  </div>
+  <button class="bg-amber-500" type="submit" style="border: none ; outline: none ; height: 2rem ; border-radius: 13px ;color:  #0c2461; padding: .5rem;font-weight: 500 ; font-size: larger " [mat-dialog-close]="false">post your question</button>
+</form>

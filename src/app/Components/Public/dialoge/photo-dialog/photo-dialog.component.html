@@ -1,0 +1,21 @@
+<div mat-dialog-actions style="display: flex ;justify-content: space-between ;align-items: flex-start; padding: 0 ">
+  <h4 mat-dialog-title style="font-weight: 500">please select three languages</h4>
+
+
+</div>
+<hr>
+<form [formGroup]="form"  #loginform="ngForm" (submit)="onChangeImage()">
+<div style="display: flex; width: 80%; justify-content: space-between;margin-bottom: 1rem;">
+  <button style="width: 50%; height: 4rem;" mat-flat-button type="button" color="primary" (click)="filepicker.click()">pick Image</button>
+  <input type="file" #filepicker  (change)="onimagepicked($event)">
+
+
+  <div class=" imgpre" *ngIf="imagepre">
+    <img [src]="imagepre" [alt]="form.value.title">
+  </div>
+</div>
+  <button type="submit"  [mat-dialog-close]="true">submit</button>
+</form>
+
+
+

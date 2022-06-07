@@ -1,0 +1,152 @@
+<app-nav-bar></app-nav-bar>
+<div class="father">
+  <div class="left">
+  <div class="search" style="position:sticky; top: 8rem ; left: 10% ;  border-radius: 10px; background-color: #fff; display: flex ; flex-direction: column ;height: 10rem; justify-content: center; align-items: center">
+    <p style="font-size: x-large ;font-weight: 500;">search for a question</p>
+    <p style="font-size: small">type your Question or a KeyWord</p>
+    <div class="info" >
+<div style="width: 100%  ;display: flex ; justify-content: space-between ;align-items: center">
+  <i style="font-size: x-large;" class="far fa-search"></i><input type="text" style=" width: 90%;background-color: #f5f5f5;" placeholder="Start Typing . . ." [(ngModel)]="filterBug">
+
+</div>
+    </div>
+
+  </div>
+    <div class="svg" style="position:sticky; top: 19rem ; left: 10% ; width: 100% ; height: 15rem; display: flex ; justify-content:center ;align-items: center" >
+      <img style="width: 150px; height: 150px;" src="../../../../assets/images/undraw_searching_re_3ra92.svg" alt="">
+    </div>
+  </div>
+  <div class="main">
+<ng-container *ngFor="let bug of bugs">
+  <div  class="bug" *ngIf="filterBug==='' || bug.title.includes(filterBug) || bug.tags.includes(filterBug) || bug.content.includes(filterBug) ">
+
+    <header (click)="singalBug(bug._id)">
+      <div style="display: flex; gap: .5rem ;align-items: center">
+        <img style=" height: 40px; width: 40px ;border-radius: 50%" [src]="bug.userimg" alt="">
+        <div class="name">{{bug.name}}</div>
+      </div>
+
+
+
+      <div class="menu" >
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon><i class="far fa-ellipsis-h"></i></mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item style="color:#0c2461">
+            <mat-icon><i style="color: red"  class="fal fa-exclamation-triangle"></i></mat-icon>
+            <span>signal</span>
+          </button>
+          <button mat-menu-item style="color:#0c2461" >
+            <mat-icon><img style="z-index: 25;width: 40px ;height: 25px;" src="../../../assets/images/chat.png" alt=""></mat-icon>
+            <span >turn off comments</span>
+
+          </button>
+        </mat-menu>
+      </div>
+    </header>
+    <div class="body" >
+      <div (click)="singalBug(bug._id)" class="title">{{bug.title}}</div>
+      <div (click)="singalBug(bug._id)" class="content">{{bug.content}}</div>
+      <div class="tags" style="display: flex ; gap: .5rem">
+        <div (click)="singalBug(bug._id)" class="tag" *ngFor="let tag of bug.tags">{{tag}}</div>
+      </div>
+      <hr>
+      <footer>
+        <div class="options" style="margin-bottom: .5rem  ;">
+        <div>
+          <div class="share">likes</div>
+          <div class="share">views</div>
+          <div (click)="shareBug(bug._id ,bug.title)" class="share"><i style="margin-right: 5px;" class="fas fa-share"></i>Share</div>
+        </div>
+
+        </div>
+        <mat-accordion  >
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title (click)="getComments(bug._id)">
+              <div class="answer">
+                answer
+              </div>
+            </mat-panel-title>
+<!--            <mat-panel-description>-->
+<!--              Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+<!--            </mat-panel-description>-->
+          </mat-expansion-panel-header>
+          <div class="comments">
+            <form (submit)="onSubmit(bug._id)" [formGroup]="form"  #loginform="ngForm" >
+              <div class="info" >
+                <label for="">feedback</label>
+                <input type="text"   placeholder="give your feedback"   formControlName='content' ngModel  >
+              </div>
+              <button  class="bg-amber-500" type="submit" style="display: none; border: none ; outline: none ; height: 2rem ; border-radius: 13px ;color:  #0c2461; padding: .5rem;font-weight: 500 ; font-size: larger   ">upgrad profil</button>
+
+            </form>
+
+
+
+            <div class="comment" style="overflow: hidden ;overflow-y: scroll ">
+              <div class="comment" *ngFor="let comment of comments" style="margin-top: 3rem; display: flex">
+                <img [src]="comment.imagepath" alt="" style="width: 35px; height: 35px; border-radius: 50%">
+                <div style="margin-left: 1rem;">
+                  <div style="font-size: large; font-weight: 500; color: #0c2461">{{comment.name}}</div>
+                  <div style="color: black;">
+                    {{comment.content}}
+                  </div>
+                  <div style="font-size: x-small ;color: gray  ; font-weight: 200">
+                    {{(comment.date)}}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        </mat-accordion>
+      </footer>
+    </div>
+  </div>
+
+</ng-container>
+  </div>
+  <div class="right">
+    <div class="top" style="padding: .5rem;flex-direction: column;background-color: #fff; width: 100% ;gap: 1rem  ;display: flex; justify-content: center ;align-items: center ;border-radius: 10px">
+      <div (click)="addBug()" class="addBug" style="width: 80%;background-color : #B819B3; color: whitesmoke ;height: 3rem;border-radius: 10px">
+        Add Question
+      </div>
+      <div class="stats" style="width: 100% ; display: flex; align-items: center ; justify-content: center ;gap: .4rem " >
+        <div class="qs" style="border-right: 3px #0c2461 solid;width: 10rem;height: 4rem;background-color: #f3f3f3; display: flex ; justify-content: center ;align-items: center ;flex-direction: column">
+         <p style="color: #0c2461">Qestions</p>
+          <p style="font-size: x-large ;font-weight: 500;">+999</p>
+        </div>
+        <div class="anser" style="border-right: 3px deeppink solid;;width: 10rem;height: 4rem ;background-color: #f3f3f3;display: flex ; justify-content: center ;align-items: center ; flex-direction: column">
+           <p style="color: deeppink">Ansewrs</p>
+          <p style="font-size: x-large ;font-weight: 500;">+777</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="search" style="padding-top: 1rem;margin-top: .5rem;position:sticky; top: 8rem ; left: 10% ;  border-radius: 10px; background-color: #fff; display: flex ; flex-direction: column ; justify-content: center; align-items: center">
+      <p style="font-size: x-large ;font-weight: 500;">Trending </p>
+      <p style="font-size: small">maybe you find tour awnser here</p>
+
+<div style="width: 100%; display: flex ;flex-direction: column ;gap: 1rem ;padding: .5rem">
+      <ng-container *ngFor="let bug of bugs">
+        <div style="width: 100%;">
+          <header style="width: 100% ;display: flex ; gap: 5px ;">
+            <img style=" height: 40px; width: 40px ;border-radius: 8px" [src]="bug.userimg" alt="">
+            <div class="titlee" style="font-size: large ;font-weight: 500;">{{bug.title}}</div>
+          </header>
+        </div>
+        <hr>
+      </ng-container>
+</div>
+    </div>
+
+
+
+  </div>
+</div>

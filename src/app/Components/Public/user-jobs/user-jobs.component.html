@@ -1,0 +1,101 @@
+
+<app-nav-bar></app-nav-bar>
+<div class="father" style="width: 100% ;display: flex ;min-height: 100vh ;background-color: #f1f1f1;margin-top: 5rem;flex-direction: column ; justify-items: center ; align-items: center; padding-top: 1rem;">
+  <div style="display: flex ;justify-content: center ;align-items: center; flex-direction: column ;gap: .5rem">
+    <img style="width: 50px ;height: 50px;" src="../../../../assets/images/seo.png" alt="">
+    <div style="font-size: x-large ;font-weight: 500; color: #343a40">this is all your job offers </div>
+    <div style="font-size: small ;color: #343a40">here you can choose , filter and select the perfect profils for your offres  </div>
+    <div style="font-size: small ;color: #343a40">you can delete and upadate them</div>
+  </div>
+  <div style="width: 100% ;display: flex">
+  <div class="jobs" style="; width: 30% ; padding: 0 1rem ;display: flex ;flex-direction: column ; gap: 1rem ;position: sticky ;top: 6rem ;left: 2% ; height: 90vh; overflow: hidden ;overflow-y: scroll">
+    <div class="clear">
+      <div style="font-size: x-large ;font-weight: 500 ;">your Jobs</div>
+      <div style="color:#31a4ba; " >clear All</div>
+    </div>
+    <ng-container *ngFor="let job of jobs" >
+      <div class="job" style="background-color: white" >
+        <header>
+          <div style="display: flex ;justify-content: center ;align-items: flex-start ;gap: .5rem ;font-size: large ;font-weight: 500;">
+            <img [src]="job.imagepath" alt="" style="width: 45px; height: 45px; border-radius: 7px">
+            <div>
+              <div class="name">{{job.name}}</div>
+              <div *ngIf="job.full" class="status" style="background-color: #f44336; color:#fff; font-size: small ;text-align: center ;width: 60% ;border-radius: 5px">full</div>
+              <div *ngIf="!job.full" class="status" style="background-color: #04AA6D; color:#fff; font-size: small ;text-align: center ;width: 60% ;border-radius: 5px">open</div>
+
+            </div>
+
+
+          </div>
+          <div class="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon><i class="far fa-ellipsis-h"></i></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item style="color:#0c2461" (click)="switchStatus(job._id ,job.full)">
+                <mat-icon><i style="color: red"  class="fal fa-exclamation-triangle"></i></mat-icon>
+                <span *ngIf="!job.full">Mark As Full</span>
+                <span *ngIf=" job.full">open for appliment</span>
+              </button>
+              <button mat-menu-item style="color:#0c2461" (click)="deleteJob(job._id)">
+                <mat-icon><img style="z-index: 25;width: 40px ;height: 25px;" src="../../../assets/images/chat.png" alt=""></mat-icon>
+                <span >delete Job Offre</span>
+              </button>
+
+
+            </mat-menu>
+          </div>
+        </header>
+        <div class="content" (click)="showApplied(job._id)">
+          <div class="descr">{{job.content}}</div>
+          <div class="propriets">
+            <div class="type">{{job.type}}</div>
+            <div class="level">{{job.level}}</div>
+            <div class="location">{{job.location}}</div>
+          </div>
+          <div class="tech" style="display: flex ;gap: .5rem ;margin-top: .5rem;font-size: small; color: #343a40">
+            <div *ngFor="let tech of job.tech">#{{tech}}</div>
+          </div>
+        </div>
+        <hr style="margin:1rem 0">
+        <footer>
+          <div class="salary"><i style="margin-right: 7px;  color: #31a4ba;" class="far fa-sack-dollar"></i>dt {{job.salary}}<span style="color: #d5d5d5;"> /Month</span></div>
+          <div class="applied" *ngIf="job.applied!==0"> <i style="margin-right: 7px;  color: #31a4ba;" class="far fa-users"></i>{{job.applied}} <span style="color: #d5d5d5; ">people applied</span></div>
+          <div *ngIf="job.applied===0">no one applied yet </div>
+
+        </footer>
+      </div>
+    </ng-container>
+  </div>
+  <div class="applied" style=" padding-top: 2rem; gap: 1rem ; width: 70% ;justify-content: flex-start ;align-items: center ;display: flex ;flex-direction: column">
+    <div class="clear" style="width: 50%" *ngIf="users.length>0">
+      <div style="font-size: x-large ;font-weight: 500 ;">profils intersted in your offre</div>
+
+    </div>
+    <ng-container *ngFor="let user of users" >
+      <div class="job" style="background-color: white ; width: 50% ; "  (click)="visitProfil(user._id)">
+        <header>
+          <div style="display: flex ;justify-content: center ;align-items: flex-start ;gap: .5rem ;font-size: large ;font-weight: 500;">
+            <img [src]="user.imagepath" alt="" style="width: 45px; height: 45px; border-radius: 7px">
+            <div class="name">{{user.name}}</div>
+            <div style="font-size: x-small ;color: #343a40">{{user.location}}</div>
+
+          </div>
+          <div class="save">save <i  style=" margin-left: 12px; " class="fas fa-bookmark"></i></div>
+        </header>
+        <div class="content">
+          <div class="descr">{{user.bio}}</div>
+
+        </div>
+        <hr style="margin:1rem 0">
+        <footer>
+
+          <div class="type">linkedin {{user.linkedin}}</div>
+          <div class="level">github {{user.github}}</div>
+        </footer>
+      </div>
+    </ng-container>
+
+  </div>
+  </div>
+</div>

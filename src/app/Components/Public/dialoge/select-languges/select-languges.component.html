@@ -1,0 +1,19 @@
+<div mat-dialog-actions style="display: flex ;justify-content: space-between ;align-items: flex-start; padding: 0 ">
+  <h4 mat-dialog-title style="font-weight: 500">please select three languages</h4>
+  <button mat-button [mat-dialog-close]="false" color="primary" ><i class="fas fa-times"></i></button>
+
+</div>
+<hr>
+  <div class="container">
+    <ul class="ks-cboxtags">
+      <li *ngFor="let role of langage" (click)="selectLangage(role)"><input type="checkbox" [id]="role" value="Rainbow Dash"><label [for]="role">{{role}}</label></li>
+    </ul>
+  </div>
+  <button type="submit" (click)="saveLangage()" [mat-dialog-close]="true">submit</button>
+
+
+
+
+
+
+

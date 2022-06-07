@@ -1,0 +1,11 @@
+<div class="following" style=" height: 20rem;">
+  <p style="font-weight: 500 ;font-size: large; color:  #0c2461;">following</p>
+  <ng-container *ngFor="let follow of following"  >
+    <div (click)="addUser(follow._id)"  style="width: 50% ; padding: .5rem ;border-radius: 10px ; background-color: #eaeaea; display: flex ;align-items: center ;gap: 1rem ;margin-bottom: 1rem;" id="follow"  class="hover:bg-blue-100">
+      <input  type="checkbox" name="vehicle1" [value]="follow._id" style="border: 2px solid red" >
+      <label for=""><div style="display: flex ;justify-content: center;align-items: center ;gap: 1rem"> <img [src]="follow.imagepath" alt="" style="width: 35px ;height: 35px; border-radius: 50%">
+        <div style="font-size: large ; font-weight: 400">{{follow.name}}</div></div></label><br>
+    </div>
+  </ng-container>
+</div>
+<input (click)="shareBug()" class="bg-amber-500" value="share" type="button" style="margin: 1rem 40%;border: none ; outline: none ; height: 2rem ; border-radius: 13px ;color:  #0c2461; padding: .5rem;font-weight: 500 ; font-size: larger " [mat-dialog-close]="false">

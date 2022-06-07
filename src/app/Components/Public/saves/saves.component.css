@@ -1,0 +1,9 @@
+.father{
+  display: flex;
+  width: 100%;
+}
+.left{
+  width: 25%;
+  height: 90vh;
+  background-color: #eaeaea;
+}
